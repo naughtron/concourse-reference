@@ -1,0 +1,12 @@
+1. Once the hello-world.yaml was created I set the pipeline with: 
+"fly -t tutorial set-pipeline -p hello-world -c hello-world.yml"
+RESULT: A new pipeline is avail in my local instance 
+
+2. I can trigger the job by running the following command
+"fly -t tutorial unpause-pipeline -p hello-world"
+RESULT: The specified pipeline runs
+
+3. If you want to know what resources are available on a worker run 
+$ ./fly -t tutorial workers --details                                                                                          1 ⨯
+name          containers  platform  tags  team  state    version  age    garden address   baggageclaim url        active tasks  resource types                                                                                                                     
+851e26221e0b  13          linux     none  none  running  2.3      2h16m  127.0.0.1:33233  http://127.0.0.1:44493  0             bosh-io-release, bosh-io-stemcell, cf, docker-image, git, github-release, hg, mock, pool, registry-image, s3, semver, time, tracker

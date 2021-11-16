@@ -1,0 +1,22 @@
+jobs:
+- name: hello-world-job
+  plan:
+  - task: hello-world-task
+    config:
+      # this tells concourse what type of worker this task should run
+      platform: linux
+      # this is one way to tell ocncourse what container image to use for a task
+      image_resource:
+        type: registry-image
+        source:
+          repository: busybox # DEFAULT is to pull this from docker hub
+      outputs:
+        - name: the-artifact
+      run:
+        # run the command "ls -lF" to see the tasks working dir. 
+        path: ls
+        args: ["-lF"]
+      # this is the command that will be run inside the container
+      # run:
+      #   path: echo
+      #   args: ["always be testing!"]
