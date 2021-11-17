@@ -1,0 +1,24 @@
+# add a git repo as a resource
+resources:
+- name: repo
+  type: git
+  source:
+    uri: https://github.com/concourse/examples.git
+
+jobs:
+- name: repo-as-input-job
+  plan:
+  - get: repo
+    trigger: true
+  - task: repo-as-input-task
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: busybox
+      inputs: # add the get step as an input to this task
+      - name: repo
+      run: # read the file from the get step
+        path: cat
+        args: ["repo/README.md"]
