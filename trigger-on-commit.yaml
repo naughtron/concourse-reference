@@ -1,0 +1,25 @@
+# this is where you add resource keys
+# adding a git resource to the yaml file
+resources:
+- name: repo
+  type: git
+  source:
+    uri: https://github.com/concourse/examples.git
+
+
+jobs:
+- name: trigger-on-commit-job
+  plan:
+  # add a get step that references the resource at the top
+  - get: repo
+    trigger: true # this tells concourse to trigger the job when a new version is emitted by the resource
+  - task: trigger-on-commit-task
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: busybox
+      run:
+        path: echo
+        args: ["Hello World!"]
