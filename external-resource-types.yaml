@@ -1,0 +1,21 @@
+resource_types:
+# add a new resource type
+- name: rss
+  type: registry-image
+  source:
+    repository: suhlig/concourse-rss-resource
+    tag: latest
+
+resources:
+# use the resource added above
+- name: gb-feed
+  type: rss
+  source:
+    url: https://www.giantbomb.com/feeds/video
+
+# use in a job
+jobs:
+- name: announce
+  plan:
+  - get: gb-feed
+    trigger: true
