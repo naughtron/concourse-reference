@@ -1,0 +1,13 @@
+jobs:
+- name: hello-snyk-job
+  plan:
+  - task: hello-snyk-task
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: snyk/snyk-cli
+      run:
+        path: uname
+        args: [-a]
